@@ -10,7 +10,7 @@ class Lasers:
         
     def add(self):
         self.lasers.add(Laser(game=self.game))
-        print(f'Laser #{len(self.lasers)}')
+        
         
     def update(self): 
         for laser in self.lasers:

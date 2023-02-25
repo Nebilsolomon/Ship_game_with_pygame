@@ -7,6 +7,7 @@ from time import sleep
 class Aliens:
     def __init__(self, game):
         self.game = game 
+        self.sound = None
         self.lasers = game.lasers
         self.settings = game.settings
         self.screen = game.screen
@@ -24,6 +25,8 @@ class Aliens:
                             (3 * alien_height) - ship_height)
         number_rows = int(available_space_y / (1.2 * alien_height))
         return number_rows 
+    
+    def set_sound(self, sound): self.sound = sound
 
     def create_alien(self, alien_number, row_number): 
         alien = Alien(game=self.game)
@@ -54,8 +57,6 @@ class Aliens:
     def check_bottom(self): 
         for alien in self.aliens:
             if alien.rect.bottom >= self.settings.screen_height:
-                self.check_alien_and_ship_collisions()
-
 
                 return True 
             
@@ -63,7 +64,19 @@ class Aliens:
         
     def update(self):
         for alien in self.aliens: alien.update()
-        if self.check_bottom(): self.game.game_over()
+        if self.check_bottom(): 
+
+            if self.settings.ship_limit > 1:
+                self.settings.ship_limit -= 1
+            else:
+                self.game.game_over()
+
+            self.re_set_aliens()
+
+          
+
+
+           # self.game.game_over()
         if self.check_edges(): self.reverse_fleet()
         
         self.update_lasers(self.lasers.lasers)
@@ -77,26 +90,31 @@ class Aliens:
             alien.draw()
     
 
+    def re_set_aliens(self): 
+        self.aliens.empty()
+        self.lasers.lasers.empty()
+        self.create_fleet()
+        self.ship.center_ship()
+        sleep(0.8)
 
-    x = 0
+   
     def  check_alien_and_ship_collisions(self):
         if pg.sprite.spritecollideany(self.ship, self.aliens):
             
-            if self.settings.ship_limit > 0:
+            if self.settings.ship_limit > 1:
                 self.settings.ship_limit -= 1
+            else:
+                self.game.game_over()
+
+            self.re_set_aliens()
             
-            self.aliens.empty()
-            self.lasers.lasers.empty()
-            self.create_fleet()
-            self.ship.center_ship()
-            sleep(0.8)
+           
 
             
             
             
-            self.x  += 1
+          
             print("Ship collides with aliens nebil ")
-            print(f'x is {self.x}')
 
     
     def update_lasers(self, lasers):

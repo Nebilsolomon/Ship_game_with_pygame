@@ -7,10 +7,13 @@ from pygame.sprite import Sprite, Group
 
 
 
+
 class Ship(Character):
     def __init__(self, game):
 
         super().__init__(game=game, rect=None, v=Vector())
+        self.sound = None
+
        
 
                
@@ -33,6 +36,7 @@ class Ship(Character):
 
         
     def set_lasers(self, lasers): self.lasers = lasers 
+    def set_sound(self, sound): self.sound = sound
     
     def fire(self): 
         if len(self.lasers.lasers) < self.settings.lasers_allowed:
@@ -46,6 +50,8 @@ class Ship(Character):
         super().update()
         if self.firing: 
             self.fire()
+            self.sound.play_shoot()
+
 
     def draw(self):
         self.screen.blit(self.image, self.rect)

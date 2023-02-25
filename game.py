@@ -21,6 +21,7 @@ class Game:
         self.ship = Ship(game=self)
         self.lasers = Lasers(game=self)
         self.ship.set_lasers(lasers=self.lasers)
+        self.ship.set_sound(sound= self.sound)
         self.aliens = Aliens(game=self)
 
     def handle_events(self):
@@ -46,6 +47,7 @@ class Game:
 
     def restart(self): pass 
 
+
     def game_over(self):
         self.finished = True
         self.sound.play_gameover()
@@ -63,7 +65,6 @@ class Game:
             self.ship.update()
             self.lasers.update()
             self.aliens.update()
-#def update_bullets(aliens, bullets):
             pg.display.update()
             
             time.sleep(0.02)
