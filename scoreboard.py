@@ -14,14 +14,20 @@ class Scoreboard():
       
         self.font = pg.font.Font(None, 36)
         self.prep_score(score= 0)
-        
-      
-      
-      #  self.text_color = (30, 30, 30)
-       # self.font = pg.font.Font(None, 36)
-       # self.prep_score()
-       
+        self.prep_high_score(high_score= 0)
     
+
+
+
+
+
+    def prep_high_score(self, high_score):
+        self.high_score_image = self.font.render("High Score: " + str(high_score), True, (255, 255, 255))
+        self.high_score_rect = self.score_text.get_rect()
+        self.high_score_rect.centerx = self.screen_rect.centerx
+        self.high_score_rect.top = self.score_text_rect.top
+        self.screen.blit(self.high_score_image, self.high_score_rect)
+
 
     def prep_score(self, score):
         
@@ -39,18 +45,16 @@ class Scoreboard():
 
 
 
+    def show_high_score(self,high_score):
+        self.prep_high_score( high_score)
+        self.screen.blit(self.high_score_image, self.high_score_rect)
+        pg.display.update()
 
 
-     #   score_text = font.render("Score: " + str(score), True, (255, 255, 255))
 
-       # score_str = str(self.settings.score)
-        #self.score_image = self.font.render(score_str, True, self.text_color, LIGHT_RED)
-        #self.score_rect = self.score_image.get_rect() 
-        #self.score_rect.right = self.screen_rect.right - 50 
-        #self.score_rect.top = 20
+
 
     def show_score(self, score):
-       
         self.prep_score(score)
         self.screen.blit(self.score_text, self.score_text_rect)
         pg.display.update()
