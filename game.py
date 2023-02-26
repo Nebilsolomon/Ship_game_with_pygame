@@ -5,6 +5,7 @@ from settings import Settings
 from ship import Ship
 from laser import Lasers
 from alien import Aliens
+from scoreboard import Scoreboard
 
 
 class Game:
@@ -15,6 +16,9 @@ class Game:
         self.screen = pg.display.set_mode((self.window_width, self.window_height), 0, 32)
         pg.display.set_caption('Alien Invasion')
         self.finished = False
+        
+        
+       
                 
         self.sound = Sound()
         self.sound.play_background()
@@ -23,6 +27,8 @@ class Game:
         self.ship.set_lasers(lasers=self.lasers)
         self.ship.set_sound(sound= self.sound)
         self.aliens = Aliens(game=self)
+        self.aliens.set_sound(sound= self.sound)
+        self.sb = Scoreboard(game= self)
 
     def handle_events(self):
         keys_dir = {pg.K_w: Vector(0, -1), pg.K_UP: Vector(0, -1), 
@@ -59,12 +65,16 @@ class Game:
         
     def play(self):
         while not self.finished:
+            self.sb.show_score()
+
             self.handle_events() 
                 
             self.screen.fill(self.settings.bg_color)
             self.ship.update()
             self.lasers.update()
             self.aliens.update()
+            self.sb.show_score()
+
             pg.display.update()
             
             time.sleep(0.02)

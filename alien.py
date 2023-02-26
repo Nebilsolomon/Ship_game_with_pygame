@@ -110,16 +110,14 @@ class Aliens:
             
            
 
-            
-            
-            
-          
-            print("Ship collides with aliens nebil ")
 
     
     def update_lasers(self, lasers):
 
         collisions = pg.sprite.groupcollide(lasers, self.aliens, True, True)
+
+        if collisions:
+            self.sound.play_collision()
 
        
          

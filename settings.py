@@ -8,6 +8,7 @@ class Settings():
 
         self.ship_speed = 10
         self.ship_limit = 3
+        self.score = 0 
 
         self.alien_speed_factor = 10
         self.fleet_drop_speed = 10
