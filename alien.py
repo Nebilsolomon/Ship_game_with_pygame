@@ -3,6 +3,7 @@ from character import Character
 from vector import Vector
 from pygame.sprite import Sprite, Group
 from time import sleep
+import os
 
 class Aliens:
     def __init__(self, game):
@@ -17,8 +18,16 @@ class Aliens:
         self.ship = game.ship
         self.aliens = Group()
         self.v = Vector(self.settings.alien_speed_factor, 0)
+        
+        if os.path.isfile('g.txt'):
+         print("file is  exits")
+        
+
+        else:
+            with open('a.txt', 'w') as f:
+                    f.write(str(self.high_score)) 
        
-       # self.update_high_score()
+        self.update_high_score()
         self.create_fleet()
 
         
@@ -134,23 +143,27 @@ class Aliens:
             self.score +=1
             if self.score > self.high_score:
                 self.high_score = self.score
-                with open('score.txt', 'w') as f:
+                with open('g.txt', 'w') as f:
                     f.write(str(self.high_score)) 
+        
+        if len(self.aliens) == 0:
+            self.settings.alien_speed_factor += 3
+            self.lasers.lasers.empty()
+            self.create_fleet()
              
             
+
+
+
     def update_high_score(self):
-        with open('score.txt', 'r') as f:
-            self.high_score = int(f.read()) 
+        with open('g.txt', 'r') as f:
+              
+              self.high_score = int(f.read()) 
 
 
        
          
 
-        if len(self.aliens) == 0:
-            self.settings.alien_speed_factor += 3
-            self.lasers.lasers.empty()
-            self.create_fleet()
-           
         
 
           
