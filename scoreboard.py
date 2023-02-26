@@ -13,7 +13,7 @@ class Scoreboard():
         self.screen_rect = self.screen.get_rect()
       
         self.font = pg.font.Font(None, 36)
-        self.prep_score()
+        self.prep_score(score= 0)
         
       
       
@@ -23,11 +23,11 @@ class Scoreboard():
        
     
 
-    def prep_score(self):
+    def prep_score(self, score):
         
        
         
-        self.score_text = self.font.render("Score: " + str(self.settings.score ), True, (255, 255, 255))
+        self.score_text = self.font.render("Score: " + str(score), True, (255, 255, 255))
         self.score_text_rect = self.score_text.get_rect()
         self.score_text_rect.right = self.screen_rect.right - 50
         self.score_text_rect.top = 10
@@ -49,12 +49,11 @@ class Scoreboard():
         #self.score_rect.right = self.screen_rect.right - 50 
         #self.score_rect.top = 20
 
-    def show_score(self):
-        self.prep_score()
-        self.settings.score += 1 
-        print(self.settings.score)
+    def show_score(self, score):
+       
+        self.prep_score(score)
         self.screen.blit(self.score_text, self.score_text_rect)
-#        pg.display.update()
+        pg.display.update()
 
        
 

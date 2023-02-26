@@ -28,7 +28,9 @@ class Game:
         self.ship.set_sound(sound= self.sound)
         self.aliens = Aliens(game=self)
         self.aliens.set_sound(sound= self.sound)
+      
         self.sb = Scoreboard(game= self)
+        self.aliens.set_scoreboard(scoreboard = self.sb)
 
     def handle_events(self):
         keys_dir = {pg.K_w: Vector(0, -1), pg.K_UP: Vector(0, -1), 
@@ -65,7 +67,7 @@ class Game:
         
     def play(self):
         while not self.finished:
-            self.sb.show_score()
+            #self.sb.show_score()
 
             self.handle_events() 
                 
@@ -73,7 +75,9 @@ class Game:
             self.ship.update()
             self.lasers.update()
             self.aliens.update()
-            self.sb.show_score()
+           # self.sb.show_score(score=1)
+            
+        
 
             pg.display.update()
             

@@ -6,8 +6,10 @@ from time import sleep
 
 class Aliens:
     def __init__(self, game):
+        self.score = 0
         self.game = game 
         self.sound = None
+        self.scoreboard = None
         self.lasers = game.lasers
         self.settings = game.settings
         self.screen = game.screen
@@ -27,6 +29,7 @@ class Aliens:
         return number_rows 
     
     def set_sound(self, sound): self.sound = sound
+    def set_scoreboard(self, scoreboard): self.scoreboard = scoreboard
 
     def create_alien(self, alien_number, row_number): 
         alien = Alien(game=self.game)
@@ -70,6 +73,7 @@ class Aliens:
                 self.settings.ship_limit -= 1
             else:
                 self.game.game_over()
+                self.score = 0 
 
             self.re_set_aliens()
 
@@ -79,10 +83,13 @@ class Aliens:
            # self.game.game_over()
         if self.check_edges(): self.reverse_fleet()
         
-        self.update_lasers(self.lasers.lasers)
+       
         self.check_alien_and_ship_collisions()
-        
+        self.update_lasers(self.lasers.lasers)
+       
+        self.scoreboard.show_score(self.score)
         self.draw()
+
       
             
     def draw(self): 
@@ -118,6 +125,9 @@ class Aliens:
 
         if collisions:
             self.sound.play_collision()
+            self.score +=1
+            
+            
 
        
          
