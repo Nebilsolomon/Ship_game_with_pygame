@@ -40,12 +40,33 @@ class Scoreboard():
 
         # Draw the score text onto the screen
         self.screen.blit(self.score_text, self.score_text_rect)
+    
 
 
 
+    
+    def num_ships(self, num_ship):
+        
+       
+        
+        self.ship_text = self.font.render("Ship: " + str(num_ship), True, (255, 255, 255))
+        self.ship_text_rect = self.ship_text.get_rect()
+        self.ship_text_rect.left = self.screen_rect.left + 50
+        self.ship_text_rect.top = 10
+
+        # Draw the score text onto the screen
+        self.screen.blit(self.ship_text, self.ship_text_rect)
+
+
+
+    def show_num_ship(self, num_ship):
+        self.num_ships(num_ship)
+        self.screen.blit(self.ship_text, self.ship_text_rect)
+        pg.display.update()
 
 
     def show_high_score(self,high_score):
+       # self.show_num_ship(3)
         self.prep_high_score( high_score)
         self.screen.blit(self.high_score_image, self.high_score_rect)
         pg.display.update()

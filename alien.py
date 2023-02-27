@@ -17,6 +17,7 @@ class Aliens:
         self.screen = game.screen
         self.ship = game.ship
         self.aliens = Group()
+
         self.v = Vector(self.settings.alien_speed_factor, 0)
         
         if os.path.isfile('g.txt'):
@@ -29,6 +30,9 @@ class Aliens:
        
         self.update_high_score()
         self.create_fleet()
+        
+
+
 
         
     def number_aliens_x(self, alien_width): 
@@ -42,7 +46,9 @@ class Aliens:
         return number_rows 
     
     def set_sound(self, sound): self.sound = sound
-    def set_scoreboard(self, scoreboard): self.scoreboard = scoreboard
+    def set_scoreboard(self, scoreboard): 
+        self.scoreboard = scoreboard
+       # self.scoreboard.show_num_ship(3)
 
     def create_alien(self, alien_number, row_number): 
         alien = Alien(game=self.game)
@@ -103,6 +109,7 @@ class Aliens:
         self.scoreboard.show_high_score(self.high_score)
         
         self.scoreboard.show_score(self.score)
+        self.scoreboard.show_num_ship(self.settings.ship_limit)
         self.draw()
 
       
@@ -125,6 +132,8 @@ class Aliens:
             
             if self.settings.ship_limit > 1:
                 self.settings.ship_limit -= 1
+                #self.scoreboard.show_num_ship(2)
+
             else:
                 self.game.game_over()
 
