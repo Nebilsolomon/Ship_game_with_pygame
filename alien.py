@@ -20,12 +20,12 @@ class Aliens:
 
         self.v = Vector(self.settings.alien_speed_factor, 0)
         
-        if os.path.isfile('g.txt'):
+        if os.path.isfile('data.txt'):
          print("file is  exits")
         
 
         else:
-            with open('a.txt', 'w') as f:
+            with open('data.txt', 'w') as f:
                     f.write(str(self.high_score)) 
        
         self.update_high_score()
@@ -152,7 +152,7 @@ class Aliens:
             self.score +=1
             if self.score > self.high_score:
                 self.high_score = self.score
-                with open('g.txt', 'w') as f:
+                with open('data.txt', 'w') as f:
                     f.write(str(self.high_score)) 
         
         if len(self.aliens) == 0:
@@ -165,7 +165,7 @@ class Aliens:
 
 
     def update_high_score(self):
-        with open('g.txt', 'r') as f:
+        with open('data.txt', 'r') as f:
               
               self.high_score = int(f.read()) 
 
